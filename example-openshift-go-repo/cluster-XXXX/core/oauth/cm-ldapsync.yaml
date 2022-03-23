@@ -1,0 +1,31 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: ldap-group-syncer
+  namespace: openshift-authentication
+  labels:
+    app: cronjob-ldap-group-sync
+data:
+  ldap-group-sync.yaml: |
+    kind: LDAPSyncConfig
+    apiVersion: v1
+    url: ldaps://ldaps.vodafone.local:636/DC=vodafone,DC=local?samAccountName,OU=OpenShift,OU=No Desktop Control,DC=vodafone,DC=local
+    insecure: false
+    ca: /etc/ldap-ca/ca.crt
+    bindDN: 'CN=Ocp Ldap,OU=Generic Accounts,DC=vodafone,DC=local'
+    bindPassword: 
+      file: "/etc/secrets/bindPassword"
+    augmentedActiveDirectory:
+        groupsQuery: 
+            derefAliases: always
+            pageSize: 0
+        groupUIDAttribute: dn 
+        groupNameAttributes: [ cn ]
+        usersQuery:
+            baseDN: "DC=vodafone,DC=local"
+            scope: sub
+            derefAliases: always
+            filter: (objectclass=person)
+            pageSize: 0
+        userNameAttributes: [ sAMAccountName ] 
+        groupMembershipAttributes: [ memberOf ]

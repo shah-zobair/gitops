@@ -1,0 +1,11 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: ldap-group-syncer-whitelist
+  namespace: openshift-authentication
+  labels:
+    app: cronjob-ldap-group-sync
+data:
+  whitelist.txt: |
+    CN=ocp-admins,OU=OpenShift,OU=No Desktop Control,DC=vodafone,DC=local
+    CN=kube_vodafone_clusteradmins,OU=OpenShift,OU=No Desktop Control,DC=vodafone,DC=local

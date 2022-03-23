@@ -1,0 +1,51 @@
+apiVersion: machine.openshift.io/v1beta1
+kind: MachineSet
+metadata:
+  annotations:
+    machine.openshift.io/memoryMb: "98304"
+    machine.openshift.io/vCPU: "32"
+  labels:
+    machine.openshift.io/cluster-api-cluster: izm-mcloud2-hcdlf
+  name: izm-mcloud2-hcdlf-worker
+  namespace: openshift-machine-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      machine.openshift.io/cluster-api-cluster: izm-mcloud2-hcdlf
+      machine.openshift.io/cluster-api-machineset: izm-mcloud2-hcdlf-worker
+  template:
+    metadata:
+      labels:
+        machine.openshift.io/cluster-api-cluster: izm-mcloud2-hcdlf
+        machine.openshift.io/cluster-api-machine-role: worker
+        machine.openshift.io/cluster-api-machine-type: worker
+        machine.openshift.io/cluster-api-machineset: izm-mcloud2-hcdlf-worker
+    spec:
+      metadata: {}
+      providerSpec:
+        value:
+          apiVersion: vsphereprovider.openshift.io/v1beta1
+          credentialsSecret:
+            name: vsphere-cloud-credentials
+          diskGiB: 250
+          kind: VSphereMachineProviderSpec
+          memoryMiB: 98304
+          metadata:
+            creationTimestamp: null
+          network:
+            devices:
+            - networkName: 10.86.144.128%2f25_vlan1217
+            - networkName: 10.86.144.64%2f26_VLAN926
+          numCPUs: 32
+          numCoresPerSocket: 16
+          snapshot: ""
+          template: izm-mcloud2-hcdlf-rhcos
+          userDataSecret:
+            name: worker-user-data
+          workspace:
+            datacenter: GAZIEMIR
+            datastore: GZMESXPRODOCP01
+            folder: /GAZIEMIR/vm/ocp-izm-mcloud2
+            resourcePool: /GAZIEMIR/host/GZMESXPROD_OCP/Resources
+            server: vcprod01.vodafone.local

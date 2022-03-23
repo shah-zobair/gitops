@@ -1,0 +1,7 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- izm-mcloud2-hcdlf-infra.yaml
+- izm-mcloud2-hcdlf-router.yaml
+- izm-mcloud2-hcdlf-worker.yaml
