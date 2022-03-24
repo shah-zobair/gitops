@@ -4,6 +4,8 @@ metadata:
   name: openshift-gitops
   namespace: openshift-gitops
 spec:
+  image: 'registry.redhat.io/openshift-gitops-1/argocd-rhel8'
+  version: 'v1.4.4-6'
 #  initialRepositories: |
 #    - url: https://github.com/argoproj/my-private-repository
 #      passwordSecret:
@@ -13,6 +15,8 @@ spec:
 #        name: my-secret
 #        key: username
   applicationSet:
+    image: 'registry.redhat.io/openshift-gitops-1/applicationset-rhel8'
+    version: 'v1.4.4-6'
     resources:
       limits:
         cpu: "2"
@@ -21,6 +25,8 @@ spec:
         cpu: 250m
         memory: 512Mi
   controller:
+    image: 'registry.redhat.io/openshift-gitops-1/argocd-rhel8'
+    version: 'v1.4.4-6'
     processors: {}
     resources:
       limits:
@@ -31,6 +37,8 @@ spec:
         memory: 1Gi
     sharding: {}
   dex:
+    image: 'registry.redhat.io/openshift-gitops-1/dex-rhel8'
+    version: 'v1.4.4-6'
     openShiftOAuth: true
     resources:
       limits:
@@ -80,6 +88,8 @@ spec:
         cpu: 250m
         memory: 128Mi
   repo:
+    image: 'registry.redhat.io/openshift-gitops-1/argocd-rhel8'
+    version: 'v1.4.4-6'
     resources:
       limits:
         cpu: "1"
